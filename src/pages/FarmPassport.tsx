@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Leaf, Phone, Bug, Calendar, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Leaf, Bug, Calendar, AlertTriangle } from 'lucide-react';
 import { farms } from '../mockData/data';
 
 export default function FarmPassport() {

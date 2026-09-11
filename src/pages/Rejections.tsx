@@ -1,4 +1,3 @@
-import React from 'react';
 import { rejections } from '../mockData/data';
 import { Plus, Search, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

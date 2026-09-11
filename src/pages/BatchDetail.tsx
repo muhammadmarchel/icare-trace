@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, QrCode, CheckCircle2, XCircle, AlertCircle, 
-  MapPin, Clock, Search, ShieldAlert, ArrowDown, ExternalLink,
+  MapPin, Clock, Search, ShieldAlert, ExternalLink,
   Printer
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
@@ -174,7 +174,7 @@ export default function BatchDetail() {
                 <div className="absolute top-0 bottom-0 left-[39px] w-0.5 bg-slate-200"></div>
                 <div className="space-y-6 relative">
                   {/* Reverse timeline for trace back */}
-                  {[...timelineOrder].reverse().map((stageName, index) => {
+                  {[...timelineOrder].reverse().map((stageName) => {
                     const event = timeline.find(e => e.stage === stageName);
                     if (!event) return null;
                     
@@ -183,11 +183,11 @@ export default function BatchDetail() {
                     
                     return (
                       <div key={stageName} className="flex relative z-10 group cursor-pointer">
-                         <div className="flex-shrink-0 w-8 h-8 rounded-full border-2 bg-white flex items-center justify-center relative mt-1 z-10
-                            ${isRejectedEvent ? 'border-red-500 bg-red-50 text-red-500' : 
-                              isProblem ? 'border-orange-500 bg-orange-50 text-orange-500 ring-4 ring-orange-100' : 
-                              'border-green-500 bg-green-50 text-green-500'}
-                         ">
+                         <div className={`flex-shrink-0 w-8 h-8 rounded-full border-2 bg-white flex items-center justify-center relative mt-1 z-10
+                            ${isRejectedEvent ? 'border-red-500 text-red-500' : 
+                              isProblem ? 'border-orange-500 text-orange-500 ring-4 ring-orange-100' : 
+                              'border-green-500 text-green-500'}
+                         `}>
                             {isRejectedEvent ? <XCircle className="h-4 w-4" /> : 
                              isProblem ? <AlertCircle className="h-4 w-4" /> : 
                              <CheckCircle2 className="h-4 w-4" />}
@@ -282,7 +282,7 @@ export default function BatchDetail() {
             <div className="hidden md:block absolute top-5 left-0 w-full h-0.5 bg-slate-200"></div>
             
             <div className="flex flex-col md:flex-row justify-between relative z-10 space-y-6 md:space-y-0">
-              {timelineOrder.map((stageName, index) => {
+              {timelineOrder.map((stageName, stageIndex) => {
                 const event = timeline.find(e => e.stage === stageName);
                 if (!event) return null;
                 
@@ -293,7 +293,7 @@ export default function BatchDetail() {
                 return (
                   <div key={stageName} className="flex md:flex-col items-center group relative md:w-full">
                     {/* Mobile vertical line connecting */}
-                    {index < timelineOrder.length - 1 && (
+                    {stageIndex < timelineOrder.length - 1 && (
                        <div className="md:hidden absolute top-8 bottom-[-24px] left-5 w-0.5 bg-slate-200 z-[-1]"></div>
                     )}
                     

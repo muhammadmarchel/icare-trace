@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Search, QrCode, Eye, Map as MapIcon, ArrowRightLeft } from 'lucide-react';
+import { useState } from 'react';
+import { Search, QrCode, Eye, Map as MapIcon } from 'lucide-react';
 import { batches } from '../mockData/data';
 import { useNavigate } from 'react-router-dom';
 

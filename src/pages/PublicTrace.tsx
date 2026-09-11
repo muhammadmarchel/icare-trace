@@ -1,14 +1,12 @@
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { 
-  ArrowLeft, CheckCircle2, XCircle, AlertCircle, 
-  MapPin, Clock, Search, ShieldAlert, ArrowDown, Leaf, Box, Factory, Plane
+  CheckCircle2, XCircle, AlertCircle, 
+  MapPin, Clock, ShieldAlert, ArrowDown, Leaf, Box, Factory, Plane
 } from 'lucide-react';
 import { batches, timelineData, timelineOrder } from '../mockData/data';
 
 export default function PublicTrace() {
   const { batchId } = useParams();
-  const navigate = useNavigate();
 
   const batch = batches.find(b => b.id === batchId) || batches.find(b => b.id === 'GG-IND-2026-003')!;
   const timeline = timelineData[batch.id as keyof typeof timelineData] || timelineData['GG-IND-2026-003'];
@@ -24,7 +22,6 @@ export default function PublicTrace() {
             <div className="flex items-center">
               <span className="text-xl font-bold text-primary-dark tracking-tight">ICARE TRACE</span>
             </div>
-            {/* Optional: Add a back button if they want to scan another, or login */}
           </div>
         </div>
       </header>
@@ -159,7 +156,7 @@ export default function PublicTrace() {
               <div className="absolute top-4 bottom-4 left-6 w-0.5 bg-slate-200"></div>
 
               <div className="space-y-8 relative">
-                {timelineOrder.map((stageName, index) => {
+                {timelineOrder.map((stageName) => {
                   const event = timeline.find(e => e.stage === stageName);
                   if (!event) return null;
                   
@@ -225,7 +222,7 @@ export default function PublicTrace() {
 }
 
 // Simple internal icon
-function QrCodeIcon(props: any) {
+function QrCodeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>

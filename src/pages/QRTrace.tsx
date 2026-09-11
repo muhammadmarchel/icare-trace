@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { QrCode, Search, History, AlertCircle, CheckCircle2, TrendingUp } from 'lucide-react';
 
 export default function QRTrace() {
-  const [scanResult, setScanResult] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState('');
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
@@ -26,17 +25,14 @@ export default function QRTrace() {
       );
       scannerRef.current.render(
         (decodedText) => {
-          // On success
-          setScanResult(decodedText);
+          // On success: extract batch ID from URL or use as-is
           setIsScannerOpen(false);
           scannerRef.current?.clear();
-          
-          // Assuming QR code contains the URL or just the ID. We extract ID.
           const batchId = decodedText.split('/').pop() || decodedText;
           navigate(`/trace/${batchId}`);
         },
-        (error) => {
-          // On error (ignore, it scans continuously)
+        (_errorMsg) => {
+          // Scanning continuously — ignore per-frame errors
         }
       );
     } else {
@@ -134,10 +130,10 @@ export default function QRTrace() {
           <History className="mr-2 h-5 w-5 text-slate-400" /> Recent Scans
         </h2>
         <div className="divide-y divide-slate-100">
-          {recentScans.map((scan, index) => {
+          {recentScans.map((scan) => {
             const Icon = scan.icon;
             return (
-              <div key={index} className="py-3 flex justify-between items-center group cursor-pointer hover:bg-slate-50 -mx-6 px-6 transition-colors" onClick={() => navigate(`/trace/${scan.id}`)}>
+              <div key={scan.id} className="py-3 flex justify-between items-center group cursor-pointer hover:bg-slate-50 -mx-6 px-6 transition-colors" onClick={() => navigate(`/trace/${scan.id}`)}>
                 <div className="flex items-center">
                   <div className={`p-2 rounded-full bg-slate-50 mr-3 ${scan.color}`}>
                     <Icon className="h-5 w-5" />

@@ -1,7 +1,6 @@
-import React from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell, LineChart, Line
+  PieChart, Pie, Cell, LineChart, Line, type PieLabelRenderProps
 } from 'recharts';
 import { Download } from 'lucide-react';
 
@@ -56,7 +55,7 @@ export default function RejectionAnalysis() {
                   cy="50%"
                   outerRadius={100}
                   dataKey="value"
-                  label={({name, percent}) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }: PieLabelRenderProps) => `${String(name ?? '')} ${((Number(percent) || 0) * 100).toFixed(0)}%`}
                 >
                   {reasonData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
