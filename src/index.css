@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #22c55e;
+  --color-primary-dark: #16a34a;
+  --color-secondary: #f59e0b;
+  --color-status-green: #10b981;
+  --color-status-yellow: #f59e0b;
+  --color-status-red: #ef4444;
+  --color-status-blue: #3b82f6;
+}
+
+@layer base {
+  body {
+    @apply text-slate-800 bg-slate-50;
+  }
+}
