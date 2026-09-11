@@ -8,7 +8,8 @@ import {
   AlertCircle,
   CheckCircle2,
   Clock,
-  ChevronRight
+  ChevronRight,
+  QrCode
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -62,6 +63,36 @@ export default function Dashboard() {
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Good afternoon, Admin</h1>
         <p className="text-slate-500 mt-1">Monitor the Gedong Gincu mango journey from farm to export.</p>
+      </div>
+
+      {/* Traceability Highlights */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+         <div className="bg-primary p-6 rounded-xl shadow-sm text-white flex flex-col justify-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
+              <QrCode className="h-24 w-24" />
+            </div>
+            <div className="relative z-10">
+              <div className="text-5xl font-bold mb-2">92%</div>
+              <div className="font-semibold text-lg">Traceability Coverage</div>
+              <div className="text-primary-200 text-sm mt-1">of active batches have complete history</div>
+            </div>
+         </div>
+         
+         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 cursor-pointer hover:border-primary transition-colors" onClick={() => navigate('/qr-trace')}>
+            <div className="flex justify-between items-start mb-4">
+              <div className="p-3 bg-blue-50 rounded-lg text-blue-600"><QrCode className="h-6 w-6" /></div>
+            </div>
+            <div className="text-3xl font-bold text-slate-800 mb-1">24</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">QR Scans Today</div>
+         </div>
+
+         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 cursor-pointer hover:border-primary transition-colors" onClick={() => navigate('/batches')}>
+            <div className="flex justify-between items-start mb-4">
+              <div className="p-3 bg-green-50 rounded-lg text-green-600"><CheckCircle2 className="h-6 w-6" /></div>
+            </div>
+            <div className="text-3xl font-bold text-slate-800 mb-1">1,148</div>
+            <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">Complete Traceability</div>
+         </div>
       </div>
 
       {/* Stats Cards */}

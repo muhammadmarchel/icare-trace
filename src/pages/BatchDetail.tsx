@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, QrCode, CheckCircle2, XCircle, AlertCircle, 
-  MapPin, Clock, Search, ShieldAlert, ArrowDown, ExternalLink
+  MapPin, Clock, Search, ShieldAlert, ArrowDown, ExternalLink,
+  Printer
 } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { batches, timelineData, timelineOrder } from '../mockData/data';
 
 export default function BatchDetail() {
@@ -17,6 +19,7 @@ export default function BatchDetail() {
   const timeline = timelineData[batchId as keyof typeof timelineData] || timelineData['GG-IND-2026-003'];
 
   const isRejected = batch.status === 'Rejected';
+  const traceUrl = `${window.location.origin}/trace/${batch.id}`;
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -32,8 +35,11 @@ export default function BatchDetail() {
           <h1 className="text-3xl font-bold text-slate-900 font-mono tracking-tight">{batch.id}</h1>
         </div>
         <div className="mt-4 md:mt-0 flex gap-3">
-          <button className="flex items-center px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium shadow-sm">
-            <QrCode className="h-4 w-4 mr-2 text-slate-500" /> View QR
+          <button 
+            onClick={() => navigate(`/trace/${batch.id}`)}
+            className="flex items-center px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium shadow-sm"
+          >
+            <ExternalLink className="h-4 w-4 mr-2 text-slate-500" /> View Public Trace
           </button>
           {isRejected && !showTraceBack && (
             <button 
@@ -43,6 +49,33 @@ export default function BatchDetail() {
               <Search className="h-4 w-4 mr-2" /> TRACE BACK
             </button>
           )}
+        </div>
+      </div>
+
+      {/* Digital Traceability (QR) Section */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row items-center gap-8">
+        <div className="p-4 bg-white border-2 border-slate-100 rounded-xl shadow-sm flex-shrink-0">
+          <QRCodeSVG value={traceUrl} size={150} level="H" />
+        </div>
+        <div className="flex-1 flex flex-col justify-center">
+          <h3 className="font-bold text-lg text-slate-800 mb-2 flex items-center">
+             <QrCode className="h-5 w-5 mr-2 text-primary" /> QR Traceability Label
+          </h3>
+          <p className="text-slate-600 text-sm mb-4">
+            This QR code contains the full product journey for batch <strong>{batch.id}</strong>. 
+            Print and attach this label to cartons, pallets, or batch documentation.
+          </p>
+          <div className="flex gap-3">
+             <button className="flex items-center px-4 py-2 bg-slate-100 text-slate-700 rounded-md hover:bg-slate-200 transition-colors text-sm font-medium">
+               <Printer className="h-4 w-4 mr-2" /> Print QR Label
+             </button>
+             <button 
+               onClick={() => navigate('/map')}
+               className="flex items-center px-4 py-2 bg-white border border-slate-300 text-slate-700 rounded-md hover:bg-slate-50 transition-colors text-sm font-medium"
+             >
+               <MapPin className="h-4 w-4 mr-2" /> View Origin on Map
+             </button>
+          </div>
         </div>
       </div>
 

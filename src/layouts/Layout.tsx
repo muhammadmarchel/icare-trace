@@ -12,7 +12,8 @@ import {
   Search,
   Menu,
   X,
-  LogOut
+  LogOut,
+  QrCode
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -22,6 +23,7 @@ const navItems = [
   { name: 'Farms & Farmers', path: '/farms', icon: Users },
   { name: 'Map', path: '/map', icon: MapIcon },
   { name: 'Batches', path: '/batches', icon: PackageSearch },
+  { name: 'QR Trace', path: '/qr-trace', icon: QrCode },
   { group: 'QUALITY' },
   { name: 'Rejections', path: '/rejections', icon: ShieldAlert },
   { group: 'ANALYTICS' },
